@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface SpeakerRepository extends JpaRepository<Speaker, Long> {
 
     @Query("SELECT s FROM Speaker s JOIN FETCH s.conferences WHERE s.id = :id")
-    Optional<List<Conference>> getByIdWithConferences(@Param("id") Long id);
+    Optional<List<Conference>> findByIdWithConferences(@Param("id") Long id);
 }

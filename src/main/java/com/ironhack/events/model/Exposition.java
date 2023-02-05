@@ -11,7 +11,7 @@ public class Exposition extends Event{
     public Exposition() {
     }
 
-    public Exposition(Date date, Duration duration, String location, String title, List<Guest> guestList) {
+    public Exposition(String date, Duration duration, String location, String title, List<Guest> guestList) {
         super(date, duration, location, title, guestList);
     }
 }

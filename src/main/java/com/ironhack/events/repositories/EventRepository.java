@@ -12,6 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
-    @Query("SELECT e FROM Event e JOIN FETCH e.guestList WHERE s.id = :id")
-    Optional<List<Conference>> getByIdWithGuestList(@Param("id") Long id);
+    @Query("SELECT e FROM Event e JOIN FETCH e.guestList WHERE e.id = :id")
+    Optional<List<Conference>> findByIdWithGuestList(@Param("id") Long id);
 }
