@@ -1,7 +1,8 @@
-package com.ironhack.repositories;
+package com.ironhack.association.repositories;
 
-import com.ironhack.model.Member;
-import com.ironhack.model.enums.Status;
+import com.ironhack.association.model.Member;
+import com.ironhack.association.model.enums.Status;
+import com.ironhack.association.repositories.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
