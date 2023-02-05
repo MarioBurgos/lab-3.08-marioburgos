@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
-//    @Query("SELECT c FROM chapter c JOIN FETCH c.members WHERE c.id = :id")
-//    Optional<Chapter> findByIdWithMembers(@Param("id") Long id);
+    @Query("SELECT c FROM Chapter c JOIN FETCH c.members WHERE c.id = :id")
+    Optional<Chapter> findByIdWithMembers(@Param("id") Long id);
 }

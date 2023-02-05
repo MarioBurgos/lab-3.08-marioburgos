@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class ChapterRepositoryTest {
 
@@ -28,45 +29,58 @@ class ChapterRepositoryTest {
     private District district;
     private Chapter chapter;
     private Member member1, member2, president;
+
     @BeforeEach
     void setUp() {
         //create chapter
         chapter = new Chapter();
         district = new District("00000");
+        // at this point, district table on db is empty.  Trying chapter.setDistrict() and saving the chapter before saving district, will blow up.
+        // whenever a table is updated, save it
+        districtRepository.save(district);
         chapter.setDistrict(district);
         //create members, president and assign to the chapter
-        member1 = new Member("member1", Status.ACTIVE, new Date(2020-02-02));
-        member2 = new Member("member2", Status.LAPSED, new Date(2015-05-05));
-        president = new Member("president", Status.ACTIVE, new Date(2001-01-01));
-        chapter.setPresident(president);
-        chapter.setMembers(List.of(member1, member2));
-        //first, other repositories save foreign data
-        districtRepository.save(district);
+        member1 = new Member("member1", Status.ACTIVE, new Date(2020 - 02 - 02));
+        member2 = new Member("member2", Status.LAPSED, new Date(2015 - 05 - 05));
+        president = new Member("president", Status.ACTIVE, new Date(2001 - 01 - 01));
         memberRepository.save(member1);
         memberRepository.save(member2);
         memberRepository.save(president);
-        //then
+        chapter.setPresident(president);
+        chapter.setMembers(List.of(member1, member2));
         chapterRepository.save(chapter);
 
-
+        member1.setChapter(chapter);
+        member2.setChapter(chapter);
+        president.setChapter(chapter);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(president);
     }
 
     @AfterEach
     void tearDown() {
+        chapter.setDistrict(null);
+        chapter.setPresident(null);
+        chapter.setMembers(null);
+        chapterRepository.save(chapter);
 
+        districtRepository.deleteAll();
+        memberRepository.deleteAll();
+        chapterRepository.deleteAll();
     }
 
     @Test
-    void JpaGoesBrrr(){
+    void JpaGoesBrrr() {
         Optional<Chapter> optionalChapter = chapterRepository.findById(chapter.getId());
         assertTrue(optionalChapter.isPresent());
         assertEquals(chapter.getDistrict(), optionalChapter.get().getDistrict());
     }
 
-//    @Test
-//    void oneToMany_ReceivesChapterId_ReturnsChapterAndMembers(){
-//        Optional<Chapter> optionalChapter = chapterRepository.findByIdWithMembers(chapter.getId());
-//        assertTrue(optionalChapter.isPresent());
-//    }
+    @Test
+    void oneToMany_ReceivesChapterId_ReturnsChapterAndMembers() {
+        Optional<Chapter> optionalChapter = chapterRepository.findByIdWithMembers(chapter.getId());
+        assertTrue(optionalChapter.isPresent());
+    }
 
 }
