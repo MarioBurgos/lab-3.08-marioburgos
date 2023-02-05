@@ -16,8 +16,8 @@ public class Conference extends Event{
     public Conference() {
     }
 
-    public Conference(Date date, Duration duration, String title, List<Guest> guestList, List<Speaker> speakers) {
-        super(date, duration, title, guestList);
+    public Conference(Date date, Duration duration, String location, String title, List<Guest> guestList, List<Speaker> speakers) {
+        super(date, duration, location, title, guestList);
         this.speakers = speakers;
     }
 

@@ -5,18 +5,19 @@ import com.ironhack.events.model.enums.Status;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.swing.text.html.Option;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class GuestRepositoryTest {
-
+    @Autowired
     private GuestRepository guestRepository;
     private Guest guest;
+
     @BeforeEach
     void setUp() {
         guest = new Guest("Guest", Status.NO_RESPONSE, null);
@@ -29,8 +30,12 @@ class GuestRepositoryTest {
     }
 
     @Test
-    void JPA_Testing(){
+    void JPA_Testing() {
         Optional<Guest> optionalGuest = guestRepository.findById(guest.getId());
         assertEquals(optionalGuest.get().getName(), "Guest");
+    }
+
+    @Test
+    void getByIdWithEvents() {
     }
 }
