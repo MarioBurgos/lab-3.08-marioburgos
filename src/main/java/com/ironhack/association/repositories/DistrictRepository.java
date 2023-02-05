@@ -1,6 +1,6 @@
-package com.ironhack.repositories;
+package com.ironhack.association.repositories;
 
-import com.ironhack.model.District;
+import com.ironhack.association.model.District;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
